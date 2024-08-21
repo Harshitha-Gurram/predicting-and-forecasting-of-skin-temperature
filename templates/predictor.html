@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Temp Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	<form action='/predict' method="post">
+        <h1>Skin Temp Predictor</h1>
+        <p>Enter the details in respective fields:</p>
+        <form>
+            <div class="form-group">
+                <div class="form-item">
+                    <label for='CB_FLOW'>Cold Blast Flow:</label><br /><br />
+                    <input type='number' id='CB_FLOW' name='CB_FLOW' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='CB_PRESS'>Cold Blast Pressure:</label><br /><br />
+                    <input type='number' id='CB_PRESS' name='CB_PRESS' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='CB_TEMP'>Cold Blast Temperature:</label><br /><br />
+                    <input type='number' id='CB_TEMP' name='CB_TEMP' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='STEAM_FLOW'>Steam Flow:</label><br /><br />
+                    <input type='number' id='STEAM_FLOW' name='STEAM_FLOW' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='STEAM_TEMP'>Steam Temperature:</label><br /><br />
+                    <input type='number' id='STEAM_TEMP' name='STEAM_TEMP' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='STEAM_PRESS'>Steam Pressure:</label><br /><br />
+                    <input type='number' id='STEAM_PRESS' name='STEAM_PRESS' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='O2_PRESS'>Oxygen Pressure:</label><br /><br />
+                    <input type='number' id='O2_PRESS' name='O2_PRESS' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='O2_FLOW'>Oxygen Flow:</label><br /><br />
+                    <input type='number' id='O2_FLOW' name='O2_FLOW' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='O2_PER'>Oxygen Percentage:</label><br /><br />
+                    <input type='number' id='O2_PER' name='O2_PER' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='PCI'>Pulverized Coal Injection:</label><br /><br />
+                    <input type='number' id='PCI' name='PCI' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='ATM_HUMID'>Atmospheric Humidity:</label><br /><br />
+                    <input type='number' id='ATM_HUMID' name='ATM_HUMID' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='HB_TEMP'>Hot Blast Temperature:</label><br /><br />
+                    <input type='number' id='HB_TEMP' name='HB_TEMP' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='HB_PRESS'>Hot Blast Pressure:</label><br /><br />
+                    <input type='number' id='HB_PRESS' name='HB_PRESS' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='TOP_PRESS'>Top Gas Pressure:</label><br /><br />
+                    <input type='number' id='TOP_PRESS' name='TOP_PRESS' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='TOP_SPRAY'>Top Gas Spray:</label><br /><br />
+                    <input type='number' id='TOP_SPRAY' name='TOP_SPRAY' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='TOP_TEMP'>Top Gas Temperature:</label><br /><br />
+                    <input type='number' id='TOP_TEMP' name='TOP_TEMP' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='CO'>CO level:</label><br /><br />
+                    <input type='number' id='CO' name='CO' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='CO2'>CO2 level:</label><br /><br />
+                    <input type='number' id='CO2' name='CO2' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+                <div class='form-item'>
+                    <label for='H2'>H2 level:</label><br /><br />
+                    <input type='number' id='H2' name='H2' class='required' step=0.00001 onkeyup="enableSubmit()">
+                </div>
+            </div>
+            <center><input type='submit' id='btn' value='Predict' disabled></center>
+        </form>
+    </div>
+
+    <script>
+        function enableSubmit() {
+            let inputs = document.getElementsByClassName('required'); 
+            let btn = document.querySelector("input[type='submit']");
+            let isValid = true;
+            for (var i = 0; i < inputs.length; i++){
+                let changedInput = inputs[i];
+                if (changedInput.value.trim() === "" || changedInput.value === null){
+                    isValid = false;
+                    break;
+                }
+            }
+            btn.disabled = !isValid;
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel='stylesheet' href="{{url_for('static', filename='style.css')}}">
+        <title>Predict Skin Temp</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    
+    <body>
